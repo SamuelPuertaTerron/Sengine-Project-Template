@@ -1,0 +1,3 @@
+[submodule "Sengine"]
+	path = Sengine
+	url = https://github.com/SamuelPuertaTerron/Sengine.git
