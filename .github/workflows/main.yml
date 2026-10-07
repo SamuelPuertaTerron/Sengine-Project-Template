@@ -1,42 +1,17 @@
-# Source - https://stackoverflow.com/a/68213855
-# Posted by Droplet, modified by community. See post 'Timeline' for change history
-# Retrieved 2026-10-07, License - CC BY-SA 4.0
-#I have modified this for my own use.
-
-# Automatically updates the Sub module or Main Sengine, when I push changes to Sengine. 
-
-name: Send submodule updates to parent repo
+name: Notify Sengine
 
 on:
   push:
     branches:
-      - main
-  workflow_dispatch: # allows manual runs from the Actions tab
+      - main   # change this to the branch Sengine tracks for this submodule
 
 jobs:
-  update:
+  notify:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout parent repo
-        uses: actions/checkout@v5
-        with:
-          repository: SamuelPuertaTerron/Sengine   # owner/repo, NOT a URL
-          token: ${{ secrets.SENGINE_AUTO_UPDATE }}
-          submodules: recursive
-          fetch-depth: 0
-
-      - name: Update submodules to latest remote commits
-        run: git submodule update --init --recursive --remote
-
-      - name: Commit and push if anything changed
+      - name: Trigger submodule update in Sengine
+        env:
+          GH_TOKEN: ${{ secrets.SENGINE_AUTO_UPDATE }}
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A
-          if git diff --staged --quiet; then
-            echo "No submodule changes to commit"
-          else
-            git commit -m "Update submodules"
-            git push
-          fi
+          gh api repos/SamuelPuertaTerron/Sengine/dispatches \
+            -f event_type=submodule-updated
