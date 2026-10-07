@@ -1,7 +1,9 @@
 # Source - https://stackoverflow.com/a/68213855
 # Posted by Droplet, modified by community. See post 'Timeline' for change history
 # Retrieved 2026-10-07, License - CC BY-SA 4.0
-#I have modified this for my own use. 
+#I have modified this for my own use.
+
+# Automatically updates the Sub module or Main Sengine, when I push changes to Sengine. 
 
 name: Send submodule updates to parent repo
 
