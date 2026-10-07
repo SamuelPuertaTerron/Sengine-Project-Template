@@ -3,7 +3,7 @@ name: Notify Sengine
 on:
   push:
     branches:
-      - main   # change this to the branch Sengine tracks for this submodule
+      - main   # change this to the branch Sengine tracks for this submodule.
 
 jobs:
   notify:
